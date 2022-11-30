@@ -23,7 +23,6 @@ public class CalculatorController {
         view.addNumberListener(new NumberListener());
         view.addOperationListener(new OperatorListener());
         view.addCommandListener(new CommandListener());
-        cNumber.addObserver(view);
 
         this.model = model;
         model.addObserver(view);
@@ -38,11 +37,10 @@ public class CalculatorController {
         public void actionPerformed(ActionEvent e) {
             String command = e.getActionCommand();
             if(command.equals(".")) {
-                cNumber.appendDot();
+                model.appendDot();
             } else {
-                cNumber.appendNumber(Integer.parseInt(command));
+                model.appendNumber(Integer.parseInt(command));
             }
-            model.setValue(cNumber.value());
         }
     }
 

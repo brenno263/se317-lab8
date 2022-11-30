@@ -159,9 +159,8 @@ public class CalculatorGUI extends JFrame implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         if (o instanceof Model) {
-            // update accordingly
-        } else if (o instanceof CalculatorNumber) {
-            tDisplay.setText(o.toString());
+            Model m = (Model) o;
+            tDisplay.setText(m.getDisplay());
         }
     }
 }

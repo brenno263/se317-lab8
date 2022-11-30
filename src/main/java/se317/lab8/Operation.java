@@ -6,11 +6,4 @@ public enum Operation {
     subtract,
     mutiply,
     divide,
-    square,
-    squareRoot,
-    memoryStore,
-    memoryAdd,
-    memorySubtract,
-    memoryClear
-
 }

@@ -8,23 +8,19 @@ import java.util.Observer;
  * Because of the bizarre behavior required, where deleting values can leave a hanging dot etc. This class wraps a lot
  * of that functionality so that the number can be displayed properly, and turned into a simple double with ease.
  */
-public class CalculatorNumber extends Observable {
+public class CalculatorNumber {
 
     private final static int MAX_LENGTH = 14;
 
     private String displayValue;
 
-    private ArrayList<Observer> observers;
-
     public CalculatorNumber() {
         displayValue = "";
-        observers = new ArrayList<>();
     }
 
     public void appendNumber(int num) {
         if(displayValue.length() > MAX_LENGTH) return;
         displayValue += num;
-        notifyObservers();
     }
 
     public void appendDot() {
@@ -32,42 +28,32 @@ public class CalculatorNumber extends Observable {
         if(!displayValue.contains(".")) {
             displayValue += '.';
         }
-        notifyObservers();
     }
 
     public void deleteFromEnd() {
-        displayValue = displayValue.substring(0, displayValue.length() - 2);
-        notifyObservers();
+        displayValue = displayValue.substring(0, displayValue.length() - 1);
     }
 
     public void clear() {
         displayValue = "";
-        notifyObservers();
     }
 
     public double value() {
-        return Double.parseDouble(displayValue);
+        if(displayValue.length() == 0) {
+            return 0;
+        } else if (displayValue.charAt(displayValue.length() - 1) == '.') {
+            return Double.parseDouble(displayValue.substring(0, displayValue.length() - 1));
+        } else {
+            return Double.parseDouble(displayValue);
+        }
+    }
+
+    public void setValue(double value) {
+        displayValue = String.valueOf(value);
     }
 
     @Override
     public String toString() {
-        return String.format(displayValue);
-    }
-
-    @Override
-    public synchronized void addObserver(Observer o) {
-        observers.add(o);
-    }
-
-    @Override
-    public void notifyObservers() {
-        for (Observer o : observers) {
-            o.update(this, null);
-        }
-    }
-
-    @Override
-    public synchronized void deleteObservers() {
-        observers.clear();
+        return displayValue;
     }
 }
