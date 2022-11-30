@@ -85,6 +85,10 @@ public class Model extends Observable {
         val.setValue(value);
     }
 
+    public void setPrevVal(double prevVal) {
+        this.prevVal = prevVal;
+    }
+
     public void appendNumber(int number) {
         this.val.appendNumber(number);
         notifyObservers();
