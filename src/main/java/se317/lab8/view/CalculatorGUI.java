@@ -2,9 +2,11 @@ package se317.lab8.view;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.util.Observable;
+import java.util.Observer;
 import javax.swing.*;
 
-public class CalculatorGUI extends JFrame {
+public class CalculatorGUI extends JFrame implements Observer {
     protected JButton b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, bDot;
     protected JButton bClr, bDel;
     protected JButton bAdd, bSub, bMult, bDiv, bSq, bRt;
@@ -15,6 +17,7 @@ public class CalculatorGUI extends JFrame {
     protected Font boldFont;
 
     public CalculatorGUI() {
+        initializeComponents();
         SwingUtilities.invokeLater(this::initializeDisplay);
     }
 
@@ -38,8 +41,6 @@ public class CalculatorGUI extends JFrame {
         gridConstraints.insets = new Insets(4, 4, 4, 4);
         gridConstraints.anchor = GridBagConstraints.CENTER;
         gridConstraints.fill = GridBagConstraints.BOTH;
-
-        initializeComponents();
 
         tDisplay.setHorizontalAlignment(JTextField.RIGHT);
         tDisplay.setEditable(false);
@@ -146,5 +147,10 @@ public class CalculatorGUI extends JFrame {
         //Schedule a job for the event-dispatching thread:
         //creating and showing this application's GUI.
         CalculatorGUI calculator = new CalculatorGUI();
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        //if( arg instanceof Model) {update things}
     }
 }
