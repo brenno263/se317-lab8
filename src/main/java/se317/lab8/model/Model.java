@@ -81,6 +81,10 @@ public class Model extends Observable {
         return val.value();
     }
 
+    public double getMemory() {
+        return memory;
+    }
+
     public void setValue(double value) {
         val.setValue(value);
     }

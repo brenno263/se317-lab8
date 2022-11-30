@@ -55,4 +55,26 @@ public class ModelTest {
         model.root();
         assertEquals(5,model.getValue(),.01);
     }
+    @Test
+    public void memRecallTest(){
+        model.memoryRecall();
+        assertEquals(74.3,model.getValue(),.01);
+    }
+
+    @Test
+    public void memSubtractTest(){
+        model.memorySub();
+        assertEquals(74.3-5.5,model.getMemory(),.01);
+    }
+
+    @Test
+    public void memAddTest(){
+        model.memoryAdd();
+        assertEquals(74.3+5.5,model.getMemory(),.01);
+    }
+    @Test
+    public void memClearTest(){
+        model.memoryClear();
+        assertEquals(0,model.getMemory(),.01);
+    }
 }
