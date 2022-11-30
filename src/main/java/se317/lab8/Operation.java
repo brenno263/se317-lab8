@@ -6,4 +6,21 @@ public enum Operation {
     subtract,
     mutiply,
     divide,
+    ;
+
+    public String toSymbol() {
+        switch (this) {
+            case add:
+                return "+";
+            case subtract:
+                return "-";
+            case mutiply:
+                return "*";
+            case divide:
+                return "/";
+        }
+        return "";
+    }
 }
+
+

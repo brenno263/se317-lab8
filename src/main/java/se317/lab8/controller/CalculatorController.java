@@ -93,6 +93,8 @@ public class CalculatorController {
                 case "M-":
                     model.memorySub();
                     break;
+                case "=":
+                    model.completeOp();
                 default:
                     break;
             }

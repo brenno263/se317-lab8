@@ -77,8 +77,12 @@ public class Model extends Observable {
         notifyObservers();
     }
 
-    public double getVal(){
+    public double getValue(){
         return val.value();
+    }
+
+    public void setValue(double value) {
+        val.setValue(value);
     }
 
     public void appendNumber(int number) {

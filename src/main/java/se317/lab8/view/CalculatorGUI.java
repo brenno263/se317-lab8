@@ -1,5 +1,6 @@
 package se317.lab8.view;
 
+import se317.lab8.Operation;
 import se317.lab8.model.CalculatorNumber;
 import se317.lab8.model.Model;
 
@@ -150,17 +151,24 @@ public class CalculatorGUI extends JFrame implements Observer {
         }, commandListener);
     }
 
-    public static void main(String[] args) {
-        //Schedule a job for the event-dispatching thread:
-        //creating and showing this application's GUI.
-        CalculatorGUI calculator = new CalculatorGUI();
-    }
-
     @Override
     public void update(Observable o, Object arg) {
         if (o instanceof Model) {
-            Model m = (Model) o;
-            tDisplay.setText(m.getDisplay());
+            Model model = (Model) o;
+            tDisplay.setText(model.getDisplay());
+            updateOperatorFonts(model.getOperation());
+        }
+    }
+
+    public void updateOperatorFonts(Operation selectedOperator) {
+        JButton[] operatorButtons = new JButton[]{bAdd, bSub, bMult, bDiv};
+
+        for(JButton b : operatorButtons) {
+            if(b.getText().equals(selectedOperator.toSymbol())) {
+                b.setFont(boldFont);
+            } else {
+                b.setFont(defaultFont);
+            }
         }
     }
 }
