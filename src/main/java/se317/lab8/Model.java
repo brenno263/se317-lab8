@@ -53,5 +53,43 @@ public class Model {
                 break;
         }
     }
+    public double getVal(){
+        return val;
+    }
 
+    public ArrayList<Observer> getObservers() {
+        return observers;
+    }
+
+    public void setVal(double val) {
+        this.val = val;
+    }
+
+    public double getMemory() {
+        return memory;
+    }
+
+    public double getPrevVal() {
+        return prevVal;
+    }
+
+    public void setOperation(Operation operation) {
+        this.operation = operation;
+    }
+
+    public Operation getOperation() {
+        return operation;
+    }
+
+    public void setMemory(double memory) {
+        this.memory = memory;
+    }
+
+    public void setPrevVal(double prevVal) {
+        this.prevVal = prevVal;
+    }
+
+    public void setObservers(ArrayList<Observer> observers) {
+        this.observers = observers;
+    }
 }
