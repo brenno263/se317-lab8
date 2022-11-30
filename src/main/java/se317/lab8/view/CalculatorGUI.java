@@ -1,5 +1,8 @@
 package se317.lab8.view;
 
+import se317.lab8.model.CalculatorNumber;
+import se317.lab8.model.Model;
+
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.Observable;
@@ -11,6 +14,8 @@ public class CalculatorGUI extends JFrame implements Observer {
     protected JButton bClr, bDel;
     protected JButton bAdd, bSub, bMult, bDiv, bSq, bRt;
     protected JButton bMRec, bMClr, bMAdd, bMSub;
+
+    protected JButton bEnter;
     protected JTextField tDisplay;
 
     protected Font defaultFont;
@@ -44,17 +49,17 @@ public class CalculatorGUI extends JFrame implements Observer {
 
         tDisplay.setHorizontalAlignment(JTextField.RIGHT);
         tDisplay.setEditable(false);
-        tDisplay.setText("Bazinga!");
-        gridConstraints.gridwidth = 6;
+        gridConstraints.gridwidth = 5;
         jpMain.add(tDisplay, gridConstraints);
 
         gridConstraints.gridwidth = 1;
         addButtonsInGrid(jpMain, gridConstraints, new Component[][]{
-                {b7, b8, b9, bClr, bDel, bMRec},
-                {b4, b5, b6, bAdd, bSub, bMClr},
-                {b1, b2, b3, bMult, bDiv, bMAdd},
-                {null, b0, bDot, bSq, bRt, bMSub}
-        }, 0, 1);
+                {null, null, null, null, null, bMRec},
+                {b7, b8, b9, bClr, bDel, bMClr},
+                {b4, b5, b6, bAdd, bSub, bMAdd},
+                {b1, b2, b3, bMult, bDiv, bMSub},
+                {null, b0, bDot, bSq, bRt, bEnter}
+        }, 0, 0);
 
         setFontOnAll(jpMain, defaultFont);
         this.add(jpMain);
@@ -95,6 +100,8 @@ public class CalculatorGUI extends JFrame implements Observer {
         bMClr = new JButton("MC");
         bMAdd = new JButton("M+");
         bMSub = new JButton("M-");
+
+        bEnter = new JButton("=");
     }
 
     private void addButtonsInGrid(JPanel panel, GridBagConstraints gridContstraints, Component[][] compGrid, int xOffset, int yOffset) {
@@ -151,6 +158,10 @@ public class CalculatorGUI extends JFrame implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        //if( arg instanceof Model) {update things}
+        if (o instanceof Model) {
+            // update accordingly
+        } else if (o instanceof CalculatorNumber) {
+            tDisplay.setText(o.toString());
+        }
     }
 }

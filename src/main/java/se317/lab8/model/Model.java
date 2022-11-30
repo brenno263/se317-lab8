@@ -1,13 +1,15 @@
-package se317.lab8;
+package se317.lab8.model;
+
+import se317.lab8.Operation;
 
 import java.util.ArrayList;
+import java.util.Observable;
 import java.util.Observer;
 
 import static se317.lab8.Operation.*;
 
-public class Model {
+public class Model extends Observable {
 
-    private ArrayList<Observer> observers;
 
     private double val;
     private double prevVal;
@@ -17,7 +19,6 @@ public class Model {
 
 
     public Model() {
-        observers = new ArrayList<>();
         val = 0;
         prevVal = 0;
         operation = none;
@@ -52,6 +53,14 @@ public class Model {
                 memory = 0;
                 break;
         }
+    }
+
+    public void setValue(double value) {
+        this.val = value;
+    }
+
+    public void setOperation(Operation operation) {
+        this.operation = operation;
     }
 
 }

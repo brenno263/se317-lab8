@@ -1,6 +1,7 @@
 package se317.lab8.controller;
 
-import se317.lab8.CalculatorNumber;
+import se317.lab8.model.CalculatorNumber;
+import se317.lab8.model.Model;
 import se317.lab8.view.CalculatorGUI;
 
 import java.awt.event.ActionEvent;
@@ -9,24 +10,23 @@ import java.awt.event.ActionListener;
 public class CalculatorController {
 
     private final CalculatorGUI view;
-    //private final Model model;
-    // This will be replaced once model exists. It's good to get some functionality down now.
+    private final Model model;
     private final CalculatorNumber cNumber;
 
-    private final NumberListener numberListener;
-    private final OperatorListener operatorListener;
-    private final CommandListener commandListener;
 
+    public CalculatorController(CalculatorGUI view, Model model) {
 
-    public CalculatorController(CalculatorGUI view) {
-        numberListener = new NumberListener();
-        operatorListener = new OperatorListener();
-        commandListener = new CommandListener();
 
         cNumber = new CalculatorNumber();
 
         this.view = view;
-        view.addNumberListener(numberListener);
+        view.addNumberListener(new NumberListener());
+        view.addOperationListener(new OperatorListener());
+        view.addCommandListener(new CommandListener());
+        cNumber.addObserver(view);
+
+        this.model = model;
+        model.addObserver(view);
     }
 
     public void update() {
@@ -42,6 +42,7 @@ public class CalculatorController {
             } else {
                 cNumber.appendNumber(Integer.parseInt(command));
             }
+            model.setValue(cNumber.value());
         }
     }
 
