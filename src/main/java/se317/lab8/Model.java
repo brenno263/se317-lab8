@@ -12,6 +12,7 @@ public class Model {
     private double val;
     private double prevVal;
     private Operation operation;
+    private double memory;
 
 
 
@@ -20,30 +21,31 @@ public class Model {
         val = 0;
         prevVal = 0;
         operation = none;
+        memory = 0;
     }
 
-    public Double completeOp () {
+    public void completeOp () {
         double answer = 0;
         switch (operation) {
             case add:
-                answer = prevVal + val;
+                prevVal += val;
                 break;
             case subtract:
-                answer = prevVal - val;
+                prevVal -= val;
                 break;
             case mutiply:
-                answer = prevVal * val;
+                prevVal *= val;
                 break;
             case divide:
-                answer = prevVal / val;
+                prevVal /= val;
+                break;
+            case memoryStore:
+                memory = prevVal;
+                break;
+            case memoryAdd:
+                memory += prevVal;
                 break;
         }
-        prevVal = answer;
-        return answer;
-    }
-
-    public double multiplier() {
-
     }
 
 }

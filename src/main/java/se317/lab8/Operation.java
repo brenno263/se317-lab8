@@ -5,6 +5,10 @@ public enum Operation {
     add,
     subtract,
     mutiply,
-    divide
+    divide,
+    square,
+    squareRoot,
+    memoryStore,
+    memoryAdd
 
 }
