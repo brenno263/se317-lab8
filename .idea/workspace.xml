@@ -5,12 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4208b1db-88af-450f-9dc9-545808c51f4d" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/se317/lab8/CalculatorNumber.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/se317/lab8/model/CalculatorNumber.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/se317/lab8/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/se317/lab8/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/se317/lab8/Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/se317/lab8/model/Model.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/se317/lab8/controller/CalculatorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/se317/lab8/controller/CalculatorController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/se317/lab8/view/CalculatorGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/se317/lab8/view/CalculatorGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/se317/lab8/model/Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/se317/lab8/model/Model.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,7 +89,7 @@
       <updated>1669745265276</updated>
       <workItem from="1669745266545" duration="4000" />
       <workItem from="1669745373625" duration="11663000" />
-      <workItem from="1669830794099" duration="4047000" />
+      <workItem from="1669830794099" duration="4404000" />
     </task>
     <servers />
   </component>

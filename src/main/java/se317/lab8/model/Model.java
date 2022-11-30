@@ -54,6 +54,9 @@ public class Model extends Observable {
                 break;
         }
     }
+    public double getVal(){
+        return val;
+    }
 
     public void setValue(double value) {
         this.val = value;
@@ -63,4 +66,15 @@ public class Model extends Observable {
         this.operation = operation;
     }
 
+    public Operation getOperation() {
+        return operation;
+    }
+
+    public void setMemory(double memory) {
+        this.memory = memory;
+    }
+
+    public void setPrevVal(double prevVal) {
+        this.prevVal = prevVal;
+    }
 }
