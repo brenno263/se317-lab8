@@ -9,6 +9,8 @@ public enum Operation {
     square,
     squareRoot,
     memoryStore,
-    memoryAdd
+    memoryAdd,
+    memorySubtract,
+    memoryClear
 
 }

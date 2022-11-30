@@ -45,6 +45,12 @@ public class Model {
             case memoryAdd:
                 memory += prevVal;
                 break;
+            case memorySubtract:
+                memory -= prevVal;
+                break;
+            case memoryClear:
+                memory = 0;
+                break;
         }
     }
 
