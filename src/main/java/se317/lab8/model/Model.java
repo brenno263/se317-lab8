@@ -17,7 +17,6 @@ public class Model extends Observable {
     private double memory;
 
 
-
     public Model() {
         val = 0;
         prevVal = 0;
