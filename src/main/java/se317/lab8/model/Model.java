@@ -46,12 +46,12 @@ public class Model extends Observable {
         notifyObservers();
     }
 
-    public void square() {
+    public void root() {
         val.setValue(Math.sqrt(val.value()));
         notifyObservers();
     }
 
-    public void root() {
+    public void square() {
         val.setValue(Math.pow(val.value(), 2));
         notifyObservers();
     }

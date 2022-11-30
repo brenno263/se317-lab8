@@ -42,4 +42,17 @@ public class ModelTest {
         model.completeOp();
         assertEquals(1.72,model.getValue(), .01);
     }
+    @Test
+    public void squareTest(){
+        model.setValue(5);
+        model.square();
+        assertEquals(25,model.getValue(),.01);
+    }
+
+    @Test
+    public void rootTest(){
+        model.setValue(25);
+        model.root();
+        assertEquals(5,model.getValue(),.01);
+    }
 }
