@@ -46,12 +46,12 @@ public class Model extends Observable {
         notifyObservers();
     }
 
-    public void square() {
+    public void root() {
         val.setValue(Math.sqrt(val.value()));
         notifyObservers();
     }
 
-    public void root() {
+    public void square() {
         val.setValue(Math.pow(val.value(), 2));
         notifyObservers();
     }
@@ -81,8 +81,16 @@ public class Model extends Observable {
         return val.value();
     }
 
+    public double getMemory() {
+        return memory;
+    }
+
     public void setValue(double value) {
         val.setValue(value);
+    }
+
+    public void setPrevVal(double prevVal) {
+        this.prevVal = prevVal;
     }
 
     public void appendNumber(int number) {
