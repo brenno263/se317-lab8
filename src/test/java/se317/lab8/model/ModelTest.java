@@ -11,7 +11,7 @@ public class ModelTest {
     @Before
     public void before(){
         model.setValue(5.5);
-        model.setPrevVal(9.5);
+        model.setStoredVal(9.5);
         model.setMemory(74.3);
     }
 

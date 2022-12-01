@@ -1,7 +1,6 @@
 package se317.lab8.view;
 
 import se317.lab8.Operation;
-import se317.lab8.model.CalculatorNumber;
 import se317.lab8.model.Model;
 
 import java.awt.*;
@@ -22,6 +21,9 @@ public class CalculatorGUI extends JFrame implements Observer {
     protected Font defaultFont;
     protected Font boldFont;
 
+    protected Color defaultColor;
+    protected Color selectedColor;
+
     public CalculatorGUI() {
         initializeComponents();
         SwingUtilities.invokeLater(this::initializeDisplay);
@@ -33,9 +35,6 @@ public class CalculatorGUI extends JFrame implements Observer {
 
         JPanel jpMain = new JPanel();
         jpMain.setLayout(new GridBagLayout());
-
-        defaultFont = new Font("Helvetica", Font.PLAIN, 24);
-        boldFont = new Font("Helvetica", Font.BOLD, 24);
 
         GridBagConstraints gridConstraints = new GridBagConstraints();
         gridConstraints.gridx = 1;
@@ -62,7 +61,7 @@ public class CalculatorGUI extends JFrame implements Observer {
                 {null, b0, bDot, bSq, bRt, bEnter}
         }, 0, 0);
 
-        setFontOnAll(jpMain, defaultFont);
+        setStyleOnAll(jpMain, defaultFont, defaultColor);
         this.add(jpMain);
         this.setVisible(true);
     }
@@ -103,6 +102,12 @@ public class CalculatorGUI extends JFrame implements Observer {
         bMSub = new JButton("M-");
 
         bEnter = new JButton("=");
+
+        defaultFont = new Font("Helvetica", Font.PLAIN, 24);
+        boldFont = new Font("Helvetica", Font.BOLD, 24);
+
+        defaultColor = new Color(220, 220, 255);
+        selectedColor = new Color(210, 200, 255);
     }
 
     private void addButtonsInGrid(JPanel panel, GridBagConstraints gridContstraints, Component[][] compGrid, int xOffset, int yOffset) {
@@ -118,11 +123,12 @@ public class CalculatorGUI extends JFrame implements Observer {
         }
     }
 
-    private void setFontOnAll(Component component, Font font) {
+    private void setStyleOnAll(Component component, Font font, Color color) {
         component.setFont(font);
+        component.setBackground(color);
         if (component instanceof Container) {
             for (Component child : ((Container) component).getComponents()) {
-                setFontOnAll(child, font);
+                setStyleOnAll(child, font, color);
             }
         }
     }
@@ -147,7 +153,7 @@ public class CalculatorGUI extends JFrame implements Observer {
 
     public void addCommandListener(ActionListener commandListener) {
         addActionListenerToAll(new JButton[]{
-                bClr, bDel, bSq, bRt, bMRec, bMClr, bMAdd, bMSub
+                bClr, bDel, bEnter, bSq, bRt, bMRec, bMClr, bMAdd, bMSub
         }, commandListener);
     }
 
@@ -156,18 +162,20 @@ public class CalculatorGUI extends JFrame implements Observer {
         if (o instanceof Model) {
             Model model = (Model) o;
             tDisplay.setText(model.getDisplay());
-            updateOperatorFonts(model.getOperation());
+            updateOperatorStyles(model.getOperation());
         }
     }
 
-    public void updateOperatorFonts(Operation selectedOperator) {
+    public void updateOperatorStyles(Operation selectedOperator) {
         JButton[] operatorButtons = new JButton[]{bAdd, bSub, bMult, bDiv};
 
         for(JButton b : operatorButtons) {
             if(b.getText().equals(selectedOperator.toSymbol())) {
                 b.setFont(boldFont);
+                b.setBackground(selectedColor);
             } else {
                 b.setFont(defaultFont);
+                b.setBackground(defaultColor);
             }
         }
     }

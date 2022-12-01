@@ -12,47 +12,86 @@ public class Model extends Observable {
 
 
     private final CalculatorNumber val;
-    private double prevVal;
+    private double storedVal;
     private Operation operation;
     private double memory;
 
+    /**
+     * True if an operation was just selected. Signifies that the next number input will go into a fresh value.
+     */
+    private boolean operationJustSelected;
+
+    /**
+     * True if the selected operation is not none and has been completed at least once.
+     * If a number is entered while this is true, the value and operation are reset.
+     */
+    private boolean operationDone;
+
     private final ArrayList<Observer> observers;
+
 
     public Model() {
         val = new CalculatorNumber();
-        prevVal = 0;
+        storedVal = 0;
         operation = none;
         memory = 0;
         observers = new ArrayList<>();
     }
 
-    public void completeOp () {
-        switch (operation) {
-            case add:
-                 val.setValue(prevVal + val.value());
-                break;
-            case subtract:
-                val.setValue(prevVal - val.value());
-                break;
-            case mutiply:
-                val.setValue(prevVal * val.value());
-                break;
-            case divide:
-                val.setValue(prevVal / val.value());
-                break;
-            default:
-                return;
+    public void completeOp() {
+        //If this is true, we haven't selected a second value yet.
+
+        if(operationJustSelected) return;
+        if (operation != none) {
+
+            if (!operationDone) {
+                //Swap these values before evaluating the first time so that repeat calculations use the right modifier.
+                double temp = storedVal;
+                storedVal = val.value();
+                val.setValue(temp);
+            }
+
+            try {
+                switch (operation) {
+                    case add:
+                        val.setValue(val.value() + storedVal);
+                        break;
+                    case subtract:
+                        val.setValue(val.value() - storedVal);
+                        break;
+                    case mutiply:
+                        val.setValue(val.value() * storedVal);
+                        break;
+                    case divide:
+                        val.setValue(val.value() / storedVal);
+                        break;
+                }
+            } catch (Exception e) {
+                setError();
+            }
+
+            operationDone = true;
+            notifyObservers();
         }
-        notifyObservers();
     }
 
     public void root() {
-        val.setValue(Math.sqrt(val.value()));
+        try {
+            val.setValue(Math.sqrt(val.value()));
+        } catch (Exception e) {
+            setError();
+        }
+        setOperation(none);
         notifyObservers();
     }
 
     public void square() {
-        val.setValue(Math.pow(val.value(), 2));
+        try {
+            val.setValue(Math.pow(val.value(), 2));
+        } catch (Exception e) {
+            setError();
+        }
+        setOperation(none);
         notifyObservers();
     }
 
@@ -68,16 +107,18 @@ public class Model extends Observable {
     public void memoryAdd() {
         memory += val.value();
         val.clear();
+        setOperation(none);
         notifyObservers();
     }
 
     public void memorySub() {
         memory -= val.value();
         val.clear();
+        setOperation(none);
         notifyObservers();
     }
 
-    public double getValue(){
+    public double getValue() {
         return val.value();
     }
 
@@ -89,18 +130,44 @@ public class Model extends Observable {
         val.setValue(value);
     }
 
-    public void setPrevVal(double prevVal) {
-        this.prevVal = prevVal;
+    public void setError() {
+        val.setError();
+    }
+
+    public void setStoredVal(double storedVal) {
+        this.storedVal = storedVal;
     }
 
     public void appendNumber(int number) {
+        tryReplaceVal();
+        tryResetOperation();
         this.val.appendNumber(number);
         notifyObservers();
     }
 
     public void appendDot() {
+        tryReplaceVal();
+        tryResetOperation();
         this.val.appendDot();
         notifyObservers();
+    }
+
+    private void tryReplaceVal() {
+        if (operationJustSelected) {
+            operationJustSelected = false;
+
+            storedVal = val.value();
+            val.clear();
+        }
+    }
+
+    private void tryResetOperation() {
+        if (operationDone) {
+            operationDone = false;
+            operation = none;
+
+            val.clear();
+        }
     }
 
     public void deleteNumberFromEnd() {
@@ -110,12 +177,19 @@ public class Model extends Observable {
 
     public void clear() {
         this.val.clear();
-        this.prevVal = 0;
-        this.operation = none;
+        this.storedVal = 0;
+        setOperation(none);
         notifyObservers();
     }
 
     public void setOperation(Operation operation) {
+        if (operation == none) {
+            this.operationJustSelected = false;
+            this.operationDone = false;
+        } else {
+            this.operationJustSelected = true;
+            this.operationDone = false;
+        }
         this.operation = operation;
         notifyObservers();
     }
