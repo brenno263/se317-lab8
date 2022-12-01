@@ -10,35 +10,43 @@ public class ModelTest {
     Model model = new Model();
     @Before
     public void before(){
-        model.setValue(5.5);
-        model.setStoredVal(9.5);
+        model.setValue(9.5);
+        model.setStoredVal(5.5);
         model.setMemory(74.3);
+    }
+
+    private void setOperation(Operation op) {
+        model.setOperation(op);
+        model.setOperationJustSelected(false);
+        model.setOperationDone(true);
     }
 
     @Test
     public void addTest(){
-        model.setOperation(Operation.add);
+        setOperation(Operation.add);
+        model.setOperationJustSelected(false);
+
         model.completeOp();
         assertEquals(15,model.getValue(), .01);
     }
 
     @Test
     public void subtractTest(){
-        model.setOperation(Operation.subtract);
+        setOperation(Operation.subtract);
         model.completeOp();
         assertEquals(4,model.getValue(), .01);
     }
 
     @Test
     public void multiplyTest(){
-        model.setOperation(Operation.mutiply);
+        setOperation(Operation.mutiply);
         model.completeOp();
         assertEquals(52.25,model.getValue(), .01);
     }
 
     @Test
     public void divideTest(){
-        model.setOperation(Operation.divide);
+        setOperation(Operation.divide);
         model.completeOp();
         assertEquals(1.72,model.getValue(), .01);
     }
@@ -64,13 +72,13 @@ public class ModelTest {
     @Test
     public void memSubtractTest(){
         model.memorySub();
-        assertEquals(74.3-5.5,model.getMemory(),.01);
+        assertEquals(74.3-9.5,model.getMemory(),.01);
     }
 
     @Test
     public void memAddTest(){
         model.memoryAdd();
-        assertEquals(74.3+5.5,model.getMemory(),.01);
+        assertEquals(74.3+9.5,model.getMemory(),.01);
     }
     @Test
     public void memClearTest(){

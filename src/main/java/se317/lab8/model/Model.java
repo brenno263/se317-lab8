@@ -202,6 +202,14 @@ public class Model extends Observable {
         this.memory = memory;
     }
 
+    public void setOperationJustSelected(boolean value) {
+        operationJustSelected = value;
+    }
+
+    public void setOperationDone(boolean value) {
+        operationDone = value;
+    }
+
     public String getDisplay() {
         return val.toString();
     }
